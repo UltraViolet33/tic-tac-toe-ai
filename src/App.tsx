@@ -1,11 +1,19 @@
 import React from "react";
-
-function App() {
+import styled from "styled-components";
+import TicTacToe from "./TicTacToe";
+import "papercss/dist/paper.min.css";
+ 
+export default function App() {
   return (
-    <div>
-      <h1>Tic tac toe</h1>
-    </div>
+    <Main>
+      <TicTacToe/>
+    </Main>
   );
 }
-
-export default App;
+ 
+const Main = styled.main`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
