@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import {
   DIMENSIONS,
@@ -10,19 +10,20 @@ import {
 } from "./constants";
 import { getRandomInt, switchPlayer } from "./utils";
 import Board from "./Board";
-import { minimax } from './minimax';
+import { minimax } from "./minimax";
 
 const board = new Board();
-
 const emptyGrid = new Array(DIMENSIONS ** 2).fill(null);
 
 export default function TicTacToe() {
+
   const [grid, setGrid] = useState(emptyGrid);
 
   const [players, setPlayers] = useState<Record<string, number | null>>({
     human: null,
     ai: null,
   });
+
   const [gameState, setGameState] = useState(GAME_STATES.notStarted);
   const [nextMove, setNextMove] = useState<null | number>(null);
   const [winner, setWinner] = useState<null | string>(null);
@@ -45,7 +46,7 @@ export default function TicTacToe() {
     const index = board.isEmpty(grid)
       ? getRandomInt(0, 8)
       : minimax(board, players.ai!)[1];
-   
+
     if (index !== null && !grid[index]) {
       move(index, players.ai);
       setNextMove(players.human);
@@ -58,20 +59,21 @@ export default function TicTacToe() {
       setNextMove(players.ai);
     }
   };
+
   useEffect(() => {
     const boardWinner = board.getWinner(grid);
     const declareWinner = (winner: number) => {
       let winnerStr = "";
       switch (winner) {
         case PLAYER_X:
-          winnerStr = "Player X wins!";
+          winnerStr = "Joueur X gagne!";
           break;
         case PLAYER_O:
-          winnerStr = "Player O wins!";
+          winnerStr = "Joueur O gagne!";
           break;
         case DRAW:
         default:
-          winnerStr = "It's a draw";
+          winnerStr = "Match null";
       }
       setGameState(GAME_STATES.over);
       setWinner(winnerStr);
@@ -89,7 +91,6 @@ export default function TicTacToe() {
       nextMove === players.ai &&
       gameState !== GAME_STATES.over
     ) {
-
       timeout = setTimeout(() => {
         aiMove();
       }, 500);
@@ -100,7 +101,6 @@ export default function TicTacToe() {
   const choosePlayer = (option: number) => {
     setPlayers({ human: option, ai: switchPlayer(option) });
     setGameState(GAME_STATES.inProgress);
-
     setNextMove(PLAYER_X);
   };
 
@@ -115,10 +115,10 @@ export default function TicTacToe() {
       return (
         <div>
           <Inner>
-            <p>Choose your player</p>
+            <p>Choisis</p>
             <ButtonRow>
               <button onClick={() => choosePlayer(PLAYER_X)}>X</button>
-              <p>or</p>
+              <p>ou</p>
               <button onClick={() => choosePlayer(PLAYER_O)}>O</button>
             </ButtonRow>
           </Inner>
@@ -142,7 +142,7 @@ export default function TicTacToe() {
       return (
         <div>
           <p>{winner}</p>
-          <button onClick={startNewGame}>Start over</button>
+          <button onClick={startNewGame}>Rejouer</button>
         </div>
       );
   }
@@ -176,7 +176,6 @@ const Square = styled.div`
   width: ${SQUARE_DIMS}px;
   height: ${SQUARE_DIMS}px;
   border: 1px solid black;
-
   &:hover {
     cursor: pointer;
   }
