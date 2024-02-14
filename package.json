@@ -2,7 +2,7 @@
   "name": "tic_tac_toe",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github-UltraViolet33.github.io/Tic-Tac-Toe-React",
+  "homepage": "https://github-UltraViolet33.github.io/tic-tac-toe-ai",
   "dependencies": {
     "@atlaskit/css-reset": "^6.4.0",
     "@testing-library/jest-dom": "^5.16.5",
